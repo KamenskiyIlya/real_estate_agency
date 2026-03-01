@@ -7,7 +7,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 class Flat(models.Model):
     owner = models.CharField('ФИО владельца', max_length=200)
     owners_phonenumber = models.CharField('Номер владельца', max_length=20)
-    owner_pure_phone = PhoneNumberField('Нормализованный номер владельца', blank=True)
+    owner_pure_phone = PhoneNumberField('Нормализованный номер владельца',null=True , blank=True)
     new_building = models.BooleanField(null=True)
     created_at = models.DateTimeField(
         'Когда создано объявление',
@@ -67,4 +67,4 @@ class Claim(models.Model):
         on_delete=models.SET_NULL,
         null=True,
         verbose_name='Квартира, на которую пожаловались')
-    claim_content = models.TextField(verbose_name='Текст жалобы')
+    claim_content = models.TextField('Текст жалобы')
