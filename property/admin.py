@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Flat
+from .models import Flat, Claim
 
 
 class FlatAdmin(admin.ModelAdmin):
@@ -18,4 +18,8 @@ class FlatAdmin(admin.ModelAdmin):
 		'rooms_number',
 		'has_balcony',]
 
+class ClaimAdmin(admin.ModelAdmin):
+	raw_id_fields = ['author', 'apartment']
+
 admin.site.register(Flat, FlatAdmin)
+admin.site.register(Claim, ClaimAdmin)
