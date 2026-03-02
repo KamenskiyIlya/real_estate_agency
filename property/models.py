@@ -70,7 +70,20 @@ class Claim(models.Model):
     claim_content = models.TextField('Текст жалобы')
 
 class Owner(models.Model):
-    owner = models.CharField('ФИО владельца', max_length=200)
-    owner_phonenumber = models.CharField('Номер владельца', max_length=20)
-    owner_pure_phone = PhoneNumberField('Нормализованный номер владельца',null=True , blank=True)
-    flats = models.ManyToManyField('Flat', related_name='flats_in_possession')
+    owner = models.CharField('ФИО владельца', max_length=200, db_index=True)
+    owner_phonenumber = models.CharField(
+        'Номер владельца',
+        max_length=20,
+        db_index=True
+    )
+    owner_pure_phone = PhoneNumberField(
+        'Нормализованный номер владельца',
+        null=True,
+        blank=True,
+        db_index=True
+    )
+    flats = models.ManyToManyField(
+        'Flat',
+        related_name='flats_in_possession',
+        db_index=True
+    )
