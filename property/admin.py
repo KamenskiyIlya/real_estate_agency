@@ -32,6 +32,7 @@ class FlatAdmin(admin.ModelAdmin):
 
 class ClaimAdmin(admin.ModelAdmin):
 	raw_id_fields = ['author', 'apartment']
+	search_fields = ['author', 'apartment']
 
 class OwnerAdmin(admin.ModelAdmin):
 	raw_id_fields = ['flats']
