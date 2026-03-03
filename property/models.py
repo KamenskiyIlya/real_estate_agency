@@ -54,6 +54,11 @@ class Flat(models.Model):
     def __str__(self):
         return f'{self.town}, {self.address} ({self.price}р.)'
 
+    class Meta:
+        verbose_name = 'Квартира'
+        verbose_name_plural = 'Квартиры'
+
+
 class Claim(models.Model):
     author = models.ForeignKey(
         User,
@@ -66,6 +71,10 @@ class Claim(models.Model):
         null=True,
         verbose_name='Квартира, на которую пожаловались')
     claim_content = models.TextField('Текст жалобы')
+
+    class Meta:
+        verbose_name = 'Жалоба'
+        verbose_name_plural = 'Жалобы'
 
 class Owner(models.Model):
     owner_full_name = models.CharField('ФИО владельца', max_length=200, db_index=True)
@@ -89,3 +98,7 @@ class Owner(models.Model):
 
     def __str__(self):
         return f'{self.owner_full_name}'
+
+    class Meta:
+        verbose_name = 'Собственник'
+        verbose_name_plural = 'Собственники'
