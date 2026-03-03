@@ -68,7 +68,7 @@ class Claim(models.Model):
     claim_content = models.TextField('Текст жалобы')
 
 class Owner(models.Model):
-    owner = models.CharField('ФИО владельца', max_length=200, db_index=True)
+    owner_full_name = models.CharField('ФИО владельца', max_length=200, db_index=True)
     owner_phonenumber = models.CharField(
         'Номер владельца',
         max_length=20,
@@ -81,7 +81,11 @@ class Owner(models.Model):
         db_index=True
     )
     flats = models.ManyToManyField(
-        'Flat',
+        Flat,
         related_name='flats_in_possession',
-        db_index=True
+        verbose_name='Квартиры во владении',
+        db_index=True,
     )
+
+    def __str__(self):
+        return f'{self.owner_full_name}'
