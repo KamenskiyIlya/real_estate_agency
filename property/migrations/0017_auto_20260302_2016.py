@@ -6,7 +6,7 @@ from django.db import migrations
 def transfer_owners_data(apps, schema_editor):
     Flat = apps.get_model('property', 'Flat')
     Owner = apps.get_model('property', 'Owner')
-    for flat in Flat.objects.all():
+    for flat in Flat.objects.iterator(chunk_size=2000):
         Owner.objects.update_or_create(
             owner=flat.owner,
             defaults={

@@ -7,7 +7,7 @@ import traceback
 
 def numbers_normalisation(apps, schema_editor):
     Flat = apps.get_model('property', 'Flat')
-    for flat in Flat.objects.all():
+    for flat in Flat.objects.iterator(chunk_size=2000):
         try:
             phonenumber_specification = phonenumbers.parse(
                 flat.owners_phonenumber, 'RU')
