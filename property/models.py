@@ -5,7 +5,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 
 class Flat(models.Model):
-    new_building = models.BooleanField(null=True)
+    new_building = models.BooleanField(null=True, db_index=True)
     created_at = models.DateTimeField(
         'Когда создано объявление',
         default=timezone.now,
@@ -72,12 +72,14 @@ class Claim(models.Model):
         User,
         on_delete=models.SET_NULL,
         null=True,
-        verbose_name='Кто жаловался')
+        verbose_name='Кто жаловался'
+    )
     apartment = models.ForeignKey(
         Flat,
         on_delete=models.SET_NULL,
         null=True,
-        verbose_name='Квартира, на которую пожаловались')
+        verbose_name='Квартира, на которую пожаловались'
+    )
     claim_content = models.TextField('Текст жалобы')
 
     class Meta:
