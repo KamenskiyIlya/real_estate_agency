@@ -2,22 +2,26 @@
 
 from django.db import migrations
 import phonenumbers
+import traceback
 
 
 def numbers_normalisation(apps, schema_editor):
     Flat = apps.get_model('property', 'Flat')
     for flat in Flat.objects.all():
-        phonenumber_specification = phonenumbers.parse(
-            flat.owners_phonenumber, 'RU')
-        if phonenumbers.is_valid_number(phonenumber_specification):
-            normalized_phonenumber = phonenumbers.format_number(
-                phonenumber_specification,
-                phonenumbers.PhoneNumberFormat.E164)
-            flat.owner_pure_phone = normalized_phonenumber
-            flat.save()
-        else:
-            flat.owner_pure_phone = None
-            flat.save()
+        try:
+            phonenumber_specification = phonenumbers.parse(
+                flat.owners_phonenumber, 'RU')
+            if phonenumbers.is_valid_number(phonenumber_specification):
+                normalized_phonenumber = phonenumbers.format_number(
+                    phonenumber_specification,
+                    phonenumbers.PhoneNumberFormat.E164)
+                flat.owner_pure_phone = normalized_phonenumber
+                flat.save()
+            else:
+                flat.owner_pure_phone = None
+                flat.save()
+        except Exception:
+            traceback.print_exc()
 
 
 def move_backward(apps, schema_editor):
