@@ -7,10 +7,17 @@ def transfer_owners_data(apps, schema_editor):
     Flat = apps.get_model('property', 'Flat')
     Owner = apps.get_model('property', 'Owner')
     for flat in Flat.objects.all():
-        Owner.objects.get_or_create(
+        Owner.objects.update_or_create(
             owner=flat.owner,
-            owner_phonenumber=flat.owner_phonenumber,
-            owner_pure_phone=flat.owner_pure_phone,
+            defaults={
+                'owner_phonenumber': flat.owner_phonenumber,
+                'owner_pure_phone': flat.owner_pure_phone
+            },
+            create_defaults={
+                'owner': flat.owner,
+                'owner_phonenumber': flat.owner_phonenumber,
+                'owner_pure_phone': flat.owner_pure_phone
+            },
         )
 
 
