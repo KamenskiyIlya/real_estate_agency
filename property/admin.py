@@ -29,7 +29,7 @@ class FlatAdmin(admin.ModelAdmin):
     inlines = [
         FlatsOwnedInline,
     ]
-    exclude = ['flats_in_possession']
+    exclude = ['flats']
 
 
 class ClaimAdmin(admin.ModelAdmin):

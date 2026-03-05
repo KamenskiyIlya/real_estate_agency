@@ -55,7 +55,7 @@ class Flat(models.Model):
 
     liked_by = models.ManyToManyField(
         User,
-        related_name='liked_apartments',
+        related_name='likes',
         blank=True
     )
 
@@ -72,13 +72,15 @@ class Claim(models.Model):
         User,
         on_delete=models.SET_NULL,
         null=True,
-        verbose_name='Кто жаловался'
+        verbose_name='Кто жаловался',
+        related_name='authors'
     )
     apartment = models.ForeignKey(
         Flat,
         on_delete=models.SET_NULL,
         null=True,
-        verbose_name='Квартира, на которую пожаловались'
+        verbose_name='Квартира, на которую пожаловались',
+        related_name='apartment'
     )
     claim_content = models.TextField('Текст жалобы')
 
@@ -106,7 +108,7 @@ class Owner(models.Model):
     )
     flats = models.ManyToManyField(
         Flat,
-        related_name='flats_in_possession',
+        related_name='flats',
         verbose_name='Квартиры во владении',
         db_index=True,
     )
